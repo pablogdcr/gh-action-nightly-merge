@@ -15,6 +15,8 @@ echo "    - user_email = $INPUT_USER_EMAIL"
 echo "    - push_token = $INPUT_PUSH_TOKEN = ${!INPUT_PUSH_TOKEN}"
 echo
 
+exit 1;
+
 if [[ $INPUT_ALLOW_FORKS != "true" ]]; then
   URI=https://api.github.com
   API_HEADER="Accept: application/vnd.github.v3+json"

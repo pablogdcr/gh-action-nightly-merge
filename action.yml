@@ -7,11 +7,11 @@ branding:
 inputs:
   stable_branch:
     description: 'Name of the stable branch'
-    required: false
+    required: true
     default: 'master'
   development_branch:
     description: 'Name of the development branch'
-    required: false
+    required: true
     default: 'devel'
   allow_ff:
     description: 'Allow fast forward merge'
