@@ -5,7 +5,6 @@ set -e
 echo
 echo "  'Nightly Merge Action' is using the following input:"
 echo "    - stable_branch = '$INPUT_STABLE_BRANCH'"
-echo "    - development_branch = '$INPUT_DEVELOPMENT_BRANCH'"
 echo "    - allow_ff = $INPUT_ALLOW_FF"
 echo "    - allow_git_lfs = $INPUT_GIT_LFS"
 echo "    - ff_only = $INPUT_FF_ONLY"
@@ -14,8 +13,6 @@ echo "    - user_name = $INPUT_USER_NAME"
 echo "    - user_email = $INPUT_USER_EMAIL"
 echo "    - push_token = $INPUT_PUSH_TOKEN = ${!INPUT_PUSH_TOKEN}"
 echo
-
-exit 1;
 
 if [[ $INPUT_ALLOW_FORKS != "true" ]]; then
   URI=https://api.github.com
@@ -43,6 +40,10 @@ fi
 git remote set-url origin https://x-access-token:${!INPUT_PUSH_TOKEN}@github.com/$GITHUB_REPOSITORY.git
 git config --global user.name "$INPUT_USER_NAME"
 git config --global user.email "$INPUT_USER_EMAIL"
+
+INPUT_DEVELOPMENT_BRANCH=$(git branch | grep 'release' | tail -n 1)
+
+echo "    - development_branch = '$INPUT_DEVELOPMENT_BRANCH'"
 
 set -o xtrace
 
