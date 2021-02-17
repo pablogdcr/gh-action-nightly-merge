@@ -41,7 +41,7 @@ git remote set-url origin https://x-access-token:${!INPUT_PUSH_TOKEN}@github.com
 git config --global user.name "$INPUT_USER_NAME"
 git config --global user.email "$INPUT_USER_EMAIL"
 
-INPUT_DEVELOPMENT_BRANCH=$(git branch | grep 'release' | tail -n 1)
+INPUT_DEVELOPMENT_BRANCH=$(git branch -r | grep 'release' | tail -n 1 | sed -e "s/origin\///")
 
 echo "    - development_branch = '$INPUT_DEVELOPMENT_BRANCH'"
 
