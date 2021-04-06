@@ -45,15 +45,17 @@ git fetch
 
 INPUT_DEVELOPMENT_BRANCH=$(git branch -r | grep 'release' | tail -n 1 | sed -e "s/origin\///" | tr -d ' ')
 
-echo "    - development_branch = '$INPUT_DEVELOPMENT_BRANCH'"
+echo
+echo "DEVELOPMENT BRANCH = $INPUT_DEVELOPMENT_BRANCH"
+echo
 
 set -o xtrace
 
 git fetch origin $INPUT_STABLE_BRANCH
-(git checkout $INPUT_STABLE_BRANCH && git pull origin $INPUT_STABLE_BRANCH)||git checkout -b $INPUT_STABLE_BRANCH origin/$INPUT_STABLE_BRANCH
+(git checkout $INPUT_STABLE_BRANCH && git pull origin $INPUT_STABLE_BRANCH) || git checkout -b $INPUT_STABLE_BRANCH origin/$INPUT_STABLE_BRANCH
 
 git fetch origin $INPUT_DEVELOPMENT_BRANCH
-(git checkout $INPUT_DEVELOPMENT_BRANCH && git pull origin $INPUT_DEVELOPMENT_BRANCH)||git checkout -b $INPUT_DEVELOPMENT_BRANCH origin/$INPUT_DEVELOPMENT_BRANCH
+(git checkout $INPUT_DEVELOPMENT_BRANCH && git pull origin $INPUT_DEVELOPMENT_BRANCH) || git checkout -b $INPUT_DEVELOPMENT_BRANCH origin/$INPUT_DEVELOPMENT_BRANCH
 
 if git merge-base --is-ancestor $INPUT_STABLE_BRANCH $INPUT_DEVELOPMENT_BRANCH; then
   echo "No merge is necessary"
