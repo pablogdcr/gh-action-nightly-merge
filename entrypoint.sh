@@ -4,7 +4,7 @@ set -e
 
 echo
 echo "  'Nightly Merge Action' is using the following input:"
-echo "    - stable_branch = '$INPUT_STABLE_BRANCH'"
+echo "    - stable_branch = '$INPUT_STAGING_BRANCH'"
 echo "    - allow_ff = $INPUT_ALLOW_FF"
 echo "    - allow_git_lfs = $INPUT_GIT_LFS"
 echo "    - ff_only = $INPUT_FF_ONLY"
@@ -51,26 +51,26 @@ echo
 
 set -o xtrace
 
-git fetch origin $INPUT_STABLE_BRANCH
-(git checkout $INPUT_STABLE_BRANCH && git pull origin $INPUT_STABLE_BRANCH) || git checkout -b $INPUT_STABLE_BRANCH origin/$INPUT_STABLE_BRANCH
-
 git fetch origin $INPUT_DEVELOPMENT_BRANCH
 (git checkout $INPUT_DEVELOPMENT_BRANCH && git pull origin $INPUT_DEVELOPMENT_BRANCH) || git checkout -b $INPUT_DEVELOPMENT_BRANCH origin/$INPUT_DEVELOPMENT_BRANCH
 
-if git merge-base --is-ancestor $INPUT_STABLE_BRANCH $INPUT_DEVELOPMENT_BRANCH; then
+git fetch origin $INPUT_STAGING_BRANCH
+(git checkout $INPUT_STAGING_BRANCH && git pull origin $INPUT_STAGING_BRANCH) || git checkout -b $INPUT_STAGING_BRANCH origin/$INPUT_STAGING_BRANCH
+
+if git merge-base --is-ancestor $INPUT_DEVELOPMENT_BRANCH $INPUT_STAGING_BRANCH; then
   echo "No merge is necessary"
   exit 0
 fi;
 
 set +o xtrace
 echo
-echo "  'Nightly Merge Action' is trying to merge the '$INPUT_STABLE_BRANCH' branch ($(git log -1 --pretty=%H $INPUT_STABLE_BRANCH))"
-echo "  into the '$INPUT_DEVELOPMENT_BRANCH' branch ($(git log -1 --pretty=%H $INPUT_DEVELOPMENT_BRANCH))"
+echo "  'Nightly Merge Action' is trying to merge the '$INPUT_DEVELOPMENT_BRANCH' branch ($(git log -1 --pretty=%H $INPUT_DEVELOPMENT_BRANCH))"
+echo "  into the '$INPUT_STAGING_BRANCH' branch ($(git log -1 --pretty=%H $INPUT_STAGING_BRANCH))"
 echo
 set -o xtrace
 
 # Do the merge
-git merge $FF_MODE --no-edit $INPUT_STABLE_BRANCH
+git merge $FF_MODE --no-edit $INPUT_DEVELOPMENT_BRANCH
 
 # Pull lfs if enabled
 if [[ $INPUT_GIT_LFS == "true" ]]; then
@@ -78,4 +78,4 @@ if [[ $INPUT_GIT_LFS == "true" ]]; then
 fi
 
 # Push the branch
-git push origin $INPUT_DEVELOPMENT_BRANCH
+git push origin $INPUT_STAGING_BRANCH

@@ -6,13 +6,9 @@ branding:
   color: 'orange'
 inputs:
   stable_branch:
-    description: 'Name of the stable branch'
+    description: 'Name of the staging branch'
     required: true
-    default: 'master'
-  development_branch:
-    description: 'Name of the development branch'
-    required: true
-    default: 'devel'
+    default: 'staging'
   allow_ff:
     description: 'Allow fast forward merge'
     required: false
@@ -32,11 +28,11 @@ inputs:
   user_name:
     description: 'User name for git commits'
     required: false
-    default: 'GitHub Nightly Merge Action'
+    default: 'Nightly Merge'
   user_email:
     description: 'User email for git commits'
     required: false
-    default: 'actions@github.com'
+    default: 'pablo.giraud-carrier@rideyego.com'
   push_token:
     description: 'Environment variable containing the token to use for push'
     required: false

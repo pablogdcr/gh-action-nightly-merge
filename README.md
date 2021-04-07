@@ -1,6 +1,6 @@
 # Nightly Merge Action
 
-Automatically merge the stable branch into the development one.
+Automatically merge the latest release branch into the staging one.
 
 If the merge is not necessary, the action will do nothing.
 If the merge fails due to conflicts, the action will fail, and the repository
@@ -30,8 +30,7 @@ jobs:
     - name: Nightly Merge
       uses: robotology/gh-action-nightly-merge@v1.3.1
       with:
-        stable_branch: 'master'
-        development_branch: 'devel'
+        staging_branch: 'staging'
         allow_ff: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,13 +59,9 @@ on:
 
 ## Parameters
 
-### `stable_branch`
+### `staging_branch`
 
-The name of the stable branch (default `master`).
-
-### `development_branch`
-
-The name of the development branch (default `devel`).
+The name of the staging branch (default `staging`).
 
 ### `allow_ff`
 
@@ -89,11 +84,11 @@ Allow action to run on forks (default `false`).
 
 ### `user_name`
 
-User name for git commits (default `GitHub Nightly Merge Action`).
+User name for git commits (default `Nightly Merge`).
 
 ### `user_email`
 
-User email for git commits (default `actions@github.com`).
+User email for git commits (default `pablo.giraud-carrier@rideyego.com`).
 
 ### `push_token`
 
