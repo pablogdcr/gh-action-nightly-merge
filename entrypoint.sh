@@ -4,7 +4,7 @@ set -e
 
 echo
 echo "  'Nightly Merge Action' is using the following input:"
-echo "    - stable_branch = '$INPUT_STAGING_BRANCH'"
+echo "    - staging_branch = '$INPUT_STAGING_BRANCH'"
 echo "    - allow_ff = $INPUT_ALLOW_FF"
 echo "    - allow_git_lfs = $INPUT_GIT_LFS"
 echo "    - ff_only = $INPUT_FF_ONLY"
