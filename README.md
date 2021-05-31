@@ -63,21 +63,6 @@ on:
 
 The name of the staging branch (default `staging`).
 
-### `allow_ff`
-
-Allow fast forward merge (default `false`). If not enabled, merges will use
-`--no-ff`.
-
-### `allow_git_lfs`
-
-Allow support for repositories that use `git lfs` (default `false`). 
-
-### `ff_only`
-
-Refuse to merge and exit unless the current HEAD is already up to date or the
-merge can be resolved as a fast-forward (default `false`).
-Requires `allow_ff=true`.
-
 ### `allow_forks`
 
 Allow action to run on forks (default `false`).
