@@ -67,5 +67,4 @@ git branch -D $INPUT_STAGING_BRANCH
 git checkout -b $INPUT_STAGING_BRANCH
 
 # Push force the branch
-
-git push --force origin $INPUT_DEVELOPMENT_BRANCH
+git push --force origin $INPUT_STAGING_BRANCH
