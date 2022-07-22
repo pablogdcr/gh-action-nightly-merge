@@ -63,10 +63,6 @@ on:
 
 The name of the staging branch (default `staging`).
 
-### `allow_forks`
-
-Allow action to run on forks (default `false`).
-
 ### `user_name`
 
 User name for git commits (default `Nightly Merge`).

@@ -5,21 +5,10 @@ set -e
 echo
 echo "  'Nightly Merge Action' is using the following input:"
 echo "    - staging_branch = '$INPUT_STAGING_BRANCH'"
-echo "    - allow_forks = $INPUT_ALLOW_FORKS"
 echo "    - user_name = $INPUT_USER_NAME"
 echo "    - user_email = $INPUT_USER_EMAIL"
 echo "    - push_token = $INPUT_PUSH_TOKEN = ${!INPUT_PUSH_TOKEN}"
 echo
-
-if [[ $INPUT_ALLOW_FORKS != "true" ]]; then
-  URI=https://api.github.com
-  API_HEADER="Accept: application/vnd.github.v3+json"
-  pr_resp=$(curl -X GET -s -H "${API_HEADER}" "${URI}/repos/$GITHUB_REPOSITORY")
-  if [[ "$(echo "$pr_resp" | jq -r .fork)" != "false" ]]; then
-    echo "Nightly merge action is disabled for forks (use the 'allow_forks' option to enable it)."
-    exit 0
-  fi
-fi
 
 if [[ -z "${!INPUT_PUSH_TOKEN}" ]]; then
   echo "Set the ${INPUT_PUSH_TOKEN} env variable."

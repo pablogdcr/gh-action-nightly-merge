@@ -9,10 +9,6 @@ inputs:
     description: 'Name of the staging branch'
     required: true
     default: 'staging'
-  allow_forks:
-    description: 'Allow action to run on forks'
-    required: false
-    default: false
   user_name:
     description: 'User name for git commits'
     required: false
