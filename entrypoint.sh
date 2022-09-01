@@ -8,12 +8,15 @@ echo "    - staging_branch = '$INPUT_STAGING_BRANCH'"
 echo "    - user_name = $INPUT_USER_NAME"
 echo "    - user_email = $INPUT_USER_EMAIL"
 echo "    - push_token = $INPUT_PUSH_TOKEN = ${!INPUT_PUSH_TOKEN}"
+echo "    - github repository = $GITHUB_REPOSITORY"
 echo
 
 if [[ -z "${!INPUT_PUSH_TOKEN}" ]]; then
   echo "Set the ${INPUT_PUSH_TOKEN} env variable."
   exit 1
 fi
+
+git config --global --add safe.directory '*'
 
 git remote set-url origin https://x-access-token:${!INPUT_PUSH_TOKEN}@github.com/$GITHUB_REPOSITORY.git
 git config --global user.name "$INPUT_USER_NAME"
