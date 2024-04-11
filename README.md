@@ -69,7 +69,7 @@ User name for git commits (default `Nightly Merge`).
 
 ### `user_email`
 
-User email for git commits (default `pablo.giraud-carrier@rideyego.com`).
+User email for git commits (default `pablo.giraudcarrier@gmail.com`).
 
 ### `push_token`
 
