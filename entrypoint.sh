@@ -22,7 +22,24 @@ git remote set-url origin https://x-access-token:${!INPUT_PUSH_TOKEN}@github.com
 git config --global user.name "$INPUT_USER_NAME"
 git config --global user.email "$INPUT_USER_EMAIL"
 
-git fetch
+echo "Deinit all submodules..."
+git submodule deinit --all -f
+
+# Configure git to not fetch submodules automatically
+git config --global fetch.recurseSubmodules no
+
+echo "Init all submodules..."
+git submodule init
+
+echo "Update submodules..."
+# Get list of submodules and handle each one individually
+git config --file .gitmodules --get-regexp path | while read path_key path; do
+    echo "Processing submodule: $path"
+    git submodule update --init --force "$path" || echo "Warning: Failed to update $path, continuing..."
+done
+
+# Fetch only the main repository
+git -c fetch.recurseSubmodules=no fetch --all --tags --prune
 
 INPUT_DEVELOPMENT_BRANCH=$(git branch -r | grep 'release' | tail -n 1 | sed -e "s/origin\///" | tr -d ' ')
 
